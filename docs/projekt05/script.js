@@ -10,6 +10,8 @@ const kodpocztowy = document.getElementById("kod-pocztowy")
 const miasto = document.getElementById("miasto")
 const haslo = document.getElementById("haslo")
 const uwagi = document.getElementById("uwagi")
+
+const formularz = document.getElementById("formularz")
 // IMIE
 imie.minLength=2;
 imie.maxLength=50;
@@ -18,7 +20,7 @@ imie.addEventListener("input", function() {
         imie.setCustomValidity("Imię nie może być puste.");
     } else if (/[ \-'][ \-']/g.test(imie.value) || /^[ \-']|[ \-']$/.test(imie.value)) {
         imie.setCustomValidity("Znaki spacja, apostrof i myślnik nie mogą występować na początku, końcu, ani obok siebie.")
-    } else if (!/[\p{L} '\-]+/u.test(imie.value)) {
+    } else if (!/^[\p{L} '\-]+$/u.test(imie.value)) {
         imie.setCustomValidity("Nieprawidłowe znaki. \nDozwolone znaki: litery, myślnik, spacja, apostrof");
     } else {
         imie.setCustomValidity("");
@@ -32,7 +34,7 @@ nazwisko.addEventListener("input", function() {
         nazwisko.setCustomValidity("Nazwisko nie może być puste.");
     } else if (/[ \-'][ \-']/g.test(nazwisko.value) || /^[ \-']|[ \-']$/.test(nazwisko.value)) {
         nazwisko.setCustomValidity("Znaki spacja, apostrof i myślnik nie mogą występować na początku, końcu, ani obok siebie.")
-    } else if (!/[\p{L} '\-]+/u.test(imie.value)) {
+    } else if (!/^[\p{L} '\-]+$/u.test(nazwisko.value)) {
         nazwisko.setCustomValidity("Nieprawidłowe znaki. \nDozwolone znaki: litery, myślnik, spacja, apostrof");
     } else {
         nazwisko.setCustomValidity("");
@@ -64,10 +66,10 @@ ulica.minLength=2;
 ulica.maxLength=50;
 ulica.addEventListener("input", function() {
     if (ulica.value.trim() === "" || !(/[\p{L}]+/u.test(ulica.value))) {
-        ulica.setCustomValidity("Imię nie może być puste.");
-    } else if (/[ \-'][ \-']/g.test(ulica.value) || /^[ \-']|[ \-']$/.test(ulica.value)) {
-        ulica.setCustomValidity("Znaki spacja, apostrof i myślnik nie mogą występować na początku, końcu, ani obok siebie.")
-    } else if (!/[\p{L} '\-]+/u.test(ulica.value)) {
+        ulica.setCustomValidity("Ulica nie może być pusta.");
+    } else if (/[ \-'.][ \-'.]/g.test(ulica.value) || /^[ .\-']|[ .\-']$/.test(ulica.value)) {
+        ulica.setCustomValidity("Znaki spacja, apostrof, kropka i myślnik nie mogą występować na początku, końcu, ani obok siebie.")
+    } else if (!/^[\d\p{L} .'\-]+$/u.test(ulica.value)) {
         ulica.setCustomValidity("Nieprawidłowe znaki. \nDozwolone znaki: litery, myślnik, spacja, apostrof");
     } else {
         ulica.setCustomValidity("");
@@ -83,13 +85,14 @@ nrbudynku.title="Numer budynku w formacie liczba w zakresie 1-999 oraz opcjonaln
 // NR MIESZKANIA
 nrmieszkania.min=1
 nrmieszkania.max=100
-
+nrmieszkania.step=1
 // KOD POCZTOWY
+kodpocztowy.pattern="[0-9]{2}-[0-9]{3}"
 kodpocztowy.addEventListener("input", function() {
     let value = kodpocztowy.value;
 
     value = value.replace(/\D/g, ""); //usuwam nie-cyfry
-    value = value.slice(0,5); // ucinam do 9
+    value = value.slice(0,5); // ucinam do 5
 
     kodpocztowy.value = value.replace(/(\d{2})(?=\d)/, "$1-").slice(0,6); // dodaje myslnik po dwoch
 })
@@ -99,10 +102,10 @@ miasto.minLength=2;
 miasto.maxLength=50;
 miasto.addEventListener("input", function() {
     if (miasto.value.trim() === "" || !(/[\p{L}]+/u.test(miasto.value))) {
-        miasto.setCustomValidity("Imię nie może być puste.");
+        miasto.setCustomValidity("Miasto nie może być puste.");
     } else if (/[ \-'][ \-']/g.test(miasto.value) || /^[ \-']|[ \-']$/.test(miasto.value)) {
         miasto.setCustomValidity("Znaki spacja, apostrof i myślnik nie mogą występować na początku, końcu, ani obok siebie.")
-    } else if (!/[\p{L} '\-]+/u.test(miasto.value)) {
+    } else if (!/^[\p{L} '\-]+$/u.test(miasto.value)) {
         miasto.setCustomValidity("Nieprawidłowe znaki. \nDozwolone znaki: litery, myślnik, spacja, apostrof");
     } else {
         miasto.setCustomValidity("");
@@ -115,6 +118,8 @@ haslo.maxLength=50;
 haslo.addEventListener("input", function() {
     if (haslo.value.trim() === "") {
         haslo.setCustomValidity("Hasło nie może być puste.");
+    } else if (!/^[\p{L}\d!@#$%^&*]+$/u.test(haslo.value)) {
+        haslo.setCustomValidity("Nieprawidłowe znaki.\nDozwolone znaki: litery, cyfry, znaki specjalne: !@#$%^&*")
     } else if (haslo.value.length < 8) {
         haslo.setCustomValidity("Hasło jest za krótkie.")
     } else if (!/[A-ZĄĆĘŁŃÓŚŹŻ]/g.test(haslo.value)) {
@@ -123,8 +128,6 @@ haslo.addEventListener("input", function() {
         haslo.setCustomValidity("Brakuje małej litery.")
     } else if (!/\d/g.test(haslo.value)) {
         haslo.setCustomValidity("Brakuje cyfry.")
-    } else if (!/[\w]+/.test(haslo.value)) {
-        haslo.setCustomValidity("Nieprawidłowe znaki. \nDozwolone znaki: cyfry, litery, znaki specjalne");
     } else {
         haslo.setCustomValidity("");
     }
@@ -134,18 +137,21 @@ haslo.addEventListener("input", function() {
 // UWAGI
 uwagi.maxLength=200
 
+
+
+// przycisk testowy
 document.getElementById("wstawdane").addEventListener("click", function(){
-    imie.value="Anna-Maria Kai'Sa"
+    imie.value="Anna-Maria B'Asia"
     nazwisko.value="Świątek-Piątek O'Connor"
     data.value="2026-11-04"
     email.value="me@example.com"
     telefon.value="123 123 123"
-    ulica.value="Porzeczkowa"
+    ulica.value="al. 3. Kwietnia-Maja"
     nrbudynku.value="10B"
     nrmieszkania.value="10"
     kodpocztowy.value="12-345"
     miasto.value="Poznań"
-
+    haslo.value="Admin123"
     uwagi.value="Tekst o długości 200 znaków: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed condimentum leo, ac feugiat est. Suspendisse erat ipsum, porttitor eu est eu, accumsan mollis nisi. D"
 
 })

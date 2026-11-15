@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<div class="page-wrapper"><form action="http://adresserwera"><table>
+<div class="page-wrapper"><form action="http://adresserwera" id="formularz"><table>
     
 <colgroup>
     <col style="width: 200px;">
@@ -89,7 +89,7 @@
     <tr>
         <!-- KOD POCZTOWY -->
         <td><label for="kod-pocztowy">Kod pocztowy*:</label></td>
-        <td><input required type="text" id="kod-pocztowy" name="kod-pocztowy" pattern="[0-9]{2}-[0-9]{3}" placeholder="00-000" title="Format: 00-000, podaj tylko cyfry"></td>
+        <td><input required type="text" id="kod-pocztowy" name="kod-pocztowy" pattern= placeholder="00-000" title="Format: 00-000, podaj tylko cyfry"></td>
     </tr>
     <tr>
         <!-- MIASTO -->
@@ -101,11 +101,11 @@
         <td><label for="wojewodztwo">Województwo*:</label></td>
         <td>
             <select required id="wojewodztwo" name="wojewodztwo">
-            <option value="" selected disabled>- województwo -</option> 
-            <option value="mazowieckie">mazowieckie</option>
-            <option value="lodzkie">łódzkie</option>
-            <option value="malopolskie">małopolskie</option>
-            <option value="pomorskie">pomorskie</option>
+                <option value="" selected disabled>- województwo -</option> 
+                <option value="mazowieckie">mazowieckie</option>
+                <option value="lodzkie">łódzkie</option>
+                <option value="malopolskie">małopolskie</option>
+                <option value="pomorskie">pomorskie</option>
             </select>
         </td>
     </tr>

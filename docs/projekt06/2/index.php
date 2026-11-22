@@ -42,13 +42,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <br><br>
                     
                     <input type="submit" value="Zaloguj" style="justify">
+                    
+                    <?php
+                        if (isset($blad)) {
+                            echo "<br><br>";
+                            echo $blad;
+                        }
+                    ?>
                 </form>
         </div>
-        <?php
-            if (isset($blad)) {
-                echo $blad;
-            }
-        ?>
     </div>
 
 </div></body>

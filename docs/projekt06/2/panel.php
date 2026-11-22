@@ -12,15 +12,27 @@ if (!isset($_SESSION['login'])) {
 <head>
     <meta charset="UTF-8">
     <title>Projekt 06-2 - zalogowano</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
 
-    <h1>Witaj, <?php echo htmlspecialchars($_SESSION['login']); ?>!</h1>
+<body><div class="page-wrapper">
 
-    <p>Udało Ci się zalogować.</p>
+    <div class="topbar">
+        <div>Panel użytkownika</div>
+        <div class="topbar-right">
 
-    <form action="logout.php" method="post">
-        <input type="submit" value="Wyloguj">
-    </form>
-</body>
+            <span><?php echo htmlspecialchars($_SESSION['login']); ?></span>
+
+            <form action="logout.php" method="post">
+                <input type="submit" value="Wyloguj">
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="content">
+        <p>Logowanie pomyślne</p>
+    </div>
+</div></body>
 </html>

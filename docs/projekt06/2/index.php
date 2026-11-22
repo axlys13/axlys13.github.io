@@ -5,8 +5,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $login = $_POST['login'];
     $haslo = $_POST['haslo'];
 
-    if ($login == 'student' && $haslo == '12345') {
+    if ($login == 'admin' && $haslo == '12345') {
         $_SESSION['login'] = $login;
+        header("Location: panel.php");
+        exit;
     } else {
         $blad = "Nieprawidłowy login lub hasło!";
     }
@@ -21,26 +23,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="style.css">
 </head>
 <body><div class="page-wrapper">
+    <div class="topbar"></div>  
 
-    <h1>Logowanie</h1>  
+    <div class="login-container">
+        <div class="login-box">
 
-    <form action="" method="post">
-        <label for="login">Login:</label>
-        <input type="text" id="login" name="login" value="student">
+            <h1>Logowanie</h1>
 
-        <br><br>
+                <form action="" method="post">
+                    <label for="login">Login:</label>
+                    <input type="text" id="login" name="login" value="admin">
 
-        <label for="haslo">Hasło:</label>
-        <input type="password" id="haslo" name="haslo" value="12345">
+                    <br><br>
 
-        <br><br>
+                    <label for="haslo">Hasło:</label>
+                    <input type="password" id="haslo" name="haslo" value="12345">
 
-        <input type="submit" value="Zaloguj">
-    </form>
-<?php
-if (isset($blad)) {
-    echo $blad;
-}
-?>
+                    <br><br>
+                    
+                    <input type="submit" value="Zaloguj" style="justify">
+                </form>
+        </div>
+        <?php
+            if (isset($blad)) {
+                echo $blad;
+            }
+        ?>
+    </div>
+
 </div></body>
 </html>
